@@ -1,0 +1,313 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #6e7681;
+  font-size: 0.9em;
+  text-align: center;
+  padding: 2em;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding: .5em 1em;
+  border-bottom: 1px solid #161b22;
+}
+
+.headerLabel {
+  flex: 1;
+  font-weight: 600;
+  color: #6e7681;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: right;
+}
+
+.headerLabel:first-child {
+  text-align: left;
+}
+
+.headerHorizontalMirrored .headerLabel {
+  text-align: left;
+}
+
+.headerHorizontalMirrored .headerLabel:last-child {
+  text-align: right;
+}
+
+.levels {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.levelsHorizontal {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  overflow: hidden;
+}
+
+.asks {
+  display: flex;
+  flex-direction: column-reverse;
+  flex: 1;
+  overflow-y: auto;
+  contain: strict;
+}
+
+.bids {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  contain: strict;
+}
+
+.asks::-webkit-scrollbar,
+.bids::-webkit-scrollbar {
+  width: 6px;
+}
+
+.asks::-webkit-scrollbar-thumb,
+.bids::-webkit-scrollbar-thumb {
+  background: #21262d;
+  border-radius: 3px;
+}
+
+.asks::-webkit-scrollbar-thumb:hover,
+.bids::-webkit-scrollbar-thumb:hover {
+  background: #30363d;
+}
+
+.asksHorizontal {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  border-right: 1px solid #161b22;
+}
+
+.bidsHorizontal {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.headerHorizontal {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding: .5em 1em;
+  border-bottom: 1px solid #161b22;
+}
+
+.headerHorizontalMirrored {
+}
+
+.asksScroll {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  contain: strict;
+}
+
+.bidsScroll {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  contain: strict;
+}
+
+.asksScroll::-webkit-scrollbar,
+.bidsScroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.asksScroll::-webkit-scrollbar-thumb,
+.bidsScroll::-webkit-scrollbar-thumb {
+  background: #21262d;
+  border-radius: 3px;
+}
+
+.asksScroll::-webkit-scrollbar-thumb:hover,
+.bidsScroll::-webkit-scrollbar-thumb:hover {
+  background: #30363d;
+}
+
+.midPriceBar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: .5em 1em;
+  border-top: 1px solid #161b22;
+  border-bottom: 1px solid #161b22;
+}
+
+.midPriceBarHorizontal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .5em 1em;
+  border-bottom: 1px solid #161b22;
+}
+
+.level {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding: .25em 1em;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.levelMirrored {
+  flex-direction: row-reverse;
+}
+
+.level:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+
+.depthBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  pointer-events: none;
+}
+
+.depthBar[data-side="bid"] {
+  background: rgba(14, 203, 129, 0.25);
+}
+
+.depthBar[data-side="ask"] {
+  background: rgba(246, 70, 93, 0.25);
+}
+
+.depthBarTotal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.depthBarTotal[data-side="bid"] {
+  background: rgba(14, 203, 129, 0.15);
+}
+
+.depthBarTotal[data-side="ask"] {
+  background: rgba(246, 70, 93, 0.15);
+}
+
+.depthBarSize {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.depthBarSize[data-side="bid"] {
+  background: rgba(14, 203, 129, 0.35);
+}
+
+.depthBarSize[data-side="ask"] {
+  background: rgba(246, 70, 93, 0.35);
+}
+
+.depthBarTotal.horizontal[data-side="ask"],
+.depthBarSize.horizontal[data-side="ask"] {
+  transform-origin: right;
+}
+
+.depthBarTotal.horizontal[data-side="bid"],
+.depthBarSize.horizontal[data-side="bid"] {
+  transform-origin: left;
+}
+
+.price {
+  flex: 1;
+  font-weight: 500;
+  text-align: left;
+  z-index: 1;
+}
+
+.bid .price {
+  color: #81ebc3;
+}
+
+.ask .price {
+  color: #f795a2;
+}
+
+.size {
+  flex: 1;
+  text-align: right;
+  color: #e3e3e3;
+  z-index: 1;
+}
+
+.total {
+  flex: 1;
+  text-align: right;
+  z-index: 1;
+}
+
+/* Mirrored layout (bids): uses row-reverse, adjust text alignment */
+.levelMirrored .total {
+  text-align: left;
+}
+
+.levelMirrored .size {
+  text-align: left;
+}
+
+.levelMirrored .price {
+  text-align: right;
+}
+
+.midValue {
+  color: rgb(88, 166, 255);
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .level {
+    padding: 3px 12px;
+  }
+
+  .header {
+    padding: 10px 12px;
+  }
+}

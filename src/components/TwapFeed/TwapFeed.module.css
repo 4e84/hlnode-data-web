@@ -1,0 +1,299 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.header {
+  border-bottom: 1px solid #161b22;
+  padding: 8px 12px;
+  flex-shrink: 0;
+}
+
+.title {
+  margin: 0 0 6px 0;
+  font-weight: 600;
+  color: #c9d1d9;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.headerLabels {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6e7681;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.headerLabels span {
+  text-align: right;
+}
+
+.headerLabels span:first-child {
+  text-align: left;
+}
+
+.statuses {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* TWAP Wrapper for expandable items */
+.twapWrapper {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.twap {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 6px;
+  padding: 6px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  transition: background-color 0.1s ease;
+  border-left: 2px solid transparent;
+  line-height: 1.6;
+  align-items: center;
+}
+
+.twap.expandable {
+  cursor: pointer;
+}
+
+.twap:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.twap.buy {
+  border-left-color: #0ecb81;
+  animation: fadeIn 0.2s ease;
+}
+
+.twap.sell {
+  border-left-color: #f6465d;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  to {
+    background: transparent;
+  }
+}
+
+.side {
+  text-align: left;
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.side.buy {
+  color: #0ecb81;
+}
+
+.side.sell {
+  color: #f6465d;
+}
+
+.status {
+  text-align: right;
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.statusRunning {
+  color: #f0b90b;
+}
+
+.statusFinished {
+  color: #0ecb81;
+}
+
+.statusCancelled {
+  color: #f6465d;
+}
+
+.size {
+  text-align: right;
+  font-weight: 500;
+}
+
+.executed {
+  text-align: right;
+  font-weight: 500;
+  color: #8b949e;
+}
+
+/* Progress bar cell */
+.progressCell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.progressBar {
+  flex: 1;
+  height: 4px;
+  background: #21262d;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.progressFill.buy {
+  background: #0ecb81;
+}
+
+.progressFill.sell {
+  background: #f6465d;
+}
+
+.progressText {
+  font-size: 10px;
+  color: #8b949e;
+  min-width: 28px;
+  text-align: right;
+}
+
+.avgPrice {
+  text-align: right;
+  color: #c9d1d9;
+  font-size: 11px;
+}
+
+.timeRemaining {
+  text-align: right;
+  color: #6e7681;
+  font-size: 11px;
+}
+
+.expandIcon {
+  color: #6e7681;
+  font-size: 10px;
+  text-align: center;
+}
+
+/* Fills Section (expanded) */
+.fillsSection {
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 2px solid #21262d;
+  margin-left: 12px;
+  padding: 8px 12px;
+}
+
+.fillsHeader {
+  display: grid;
+  grid-template-columns: 80px 80px 1fr;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #6e7681;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 4px;
+}
+
+.fillsHeader span {
+  text-align: right;
+}
+
+.fillsHeader span:first-child {
+  text-align: left;
+}
+
+.fillRow {
+  display: grid;
+  grid-template-columns: 80px 80px 1fr;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 2px 0;
+  border-left: 2px solid transparent;
+}
+
+.fillRow.buy {
+  border-left-color: rgba(14, 203, 129, 0.3);
+}
+
+.fillRow.sell {
+  border-left-color: rgba(246, 70, 93, 0.3);
+}
+
+.fillPrice {
+  text-align: left;
+  color: #c9d1d9;
+}
+
+.fillSize {
+  text-align: right;
+  color: #8b949e;
+}
+
+.fillTime {
+  text-align: right;
+  color: #6e7681;
+}
+
+.fillsSummary {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #6e7681;
+  padding-top: 6px;
+  margin-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.time {
+  text-align: right;
+  color: #6e7681;
+}
+
+.loading,
+.error,
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  padding: 24px;
+  text-align: center;
+  opacity: 0.7;
+}
+
+.error {
+  color: #f6465d;
+}
+
+/* Scrollbar styling */
+.statuses::-webkit-scrollbar {
+  width: 6px;
+}
+
+.statuses::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+.statuses::-webkit-scrollbar-thumb {
+  background: #21262d;
+  border-radius: 3px;
+}
+
+.statuses::-webkit-scrollbar-thumb:hover {
+  background: #30363d;
+}

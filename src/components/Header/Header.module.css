@@ -1,0 +1,97 @@
+.container {
+  border-bottom: 1px solid #161b22;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  height: 42px;
+  flex-shrink: 0;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title h1 {
+  margin: 0;
+  font-weight: 700;
+  color: #e3e3e3;
+  letter-spacing: 0;
+}
+
+.symbolButton {
+  background: transparent;
+  border: none;
+  padding: 4px 8px;
+  margin: -4px -8px;
+  font-weight: 700;
+  color: #e3e3e3;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.1s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.symbolButton:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.symbolButton:active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.arrow {
+  color: #6e7681;
+}
+
+.subtitle {
+  color: #6e7681;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stats {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.statLabel {
+  color: #6e7681;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.statValue {
+  font-weight: 600;
+  color: #c9d1d9;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.stat.primary .statValue {
+  color: #58a6ff;
+}
+
+@media (max-width: 768px) {
+  .container {
+    height: auto;
+    flex-wrap: wrap;
+  }
+
+  .stats {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}

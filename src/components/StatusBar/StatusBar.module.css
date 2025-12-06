@@ -1,0 +1,116 @@
+.container {
+  border-top: 1px solid #161b22;
+  padding: 6px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+.left,
+.right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.status.green .statusDot {
+  background: #0ecb81;
+}
+
+.status.green .statusLabel {
+  color: #0ecb81;
+}
+
+.status.yellow .statusDot {
+  background: #d29922;
+}
+
+.status.yellow .statusLabel {
+  color: #d29922;
+}
+
+.status.red .statusDot {
+  background: #f6465d;
+}
+
+.status.red .statusLabel {
+  color: #f6465d;
+}
+
+.status.gray .statusDot {
+  background: #6e7681;
+}
+
+.status.gray .statusLabel {
+  color: #6e7681;
+}
+
+.metric {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.metricLabel {
+  color: #6e7681;
+}
+
+.metricValue {
+  color: #c9d1d9;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.url {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.urlLabel {
+  color: #6e7681;
+}
+
+.urlValue {
+  color: #58a6ff;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+@media (max-width: 768px) {
+  .container {
+    height: auto;
+    flex-wrap: wrap;
+  }
+
+  .left,
+  .right {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}

@@ -1,0 +1,29 @@
+.select {
+  background: #161b22;
+  color: #c9d1d9;
+  border: 1px solid #30363d;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  outline: none;
+}
+
+.select:hover {
+  background: #21262d;
+}
+
+.select:focus {
+  box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.1);
+}
+
+.select option {
+  background: #161b22;
+  color: #c9d1d9;
+}
+
+.fullWidth {
+  width: 100%;
+}

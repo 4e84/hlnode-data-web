@@ -1,0 +1,69 @@
+.app {
+  height: 100vh;
+  background: #000000;
+  color: #c9d1d9;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 3fr 1fr;
+  gap: 0;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.orderbook {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-right: none;
+  border-bottom: 1px solid #161b22;
+  min-height: 0;
+}
+
+.trades {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.resizer {
+  display: none;
+}
+
+/* Desktop layout: resizable split pane */
+@media (min-width: 1201px) {
+  .main {
+    grid-template-columns: calc(var(--split-ratio, 0.5) * 100%) 4px 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  .orderbook {
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .resizer {
+    display: block;
+    background: #161b22;
+    cursor: col-resize;
+    transition: background 0.15s;
+  }
+
+  .resizer:hover {
+    background: #30363d;
+  }
+}
