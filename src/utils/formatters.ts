@@ -3,29 +3,29 @@
  */
 export function formatPrice(price: number): string {
   if (price >= 1000) {
-    return '$' + price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return "$" + price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
   if (price >= 1) {
-    return '$' + price.toFixed(4);
+    return "$" + price.toFixed(4);
   }
-  return '$' + price.toFixed(6);
+  return "$" + price.toFixed(6);
 }
 
 /**
  * Format size with appropriate decimal places
  */
-export function formatSize(size: number, displayUnit?: 'coin' | 'usd', price?: number): string {
+export function formatSize(size: number, displayUnit?: "coin" | "usd", price?: number): string {
   // Convert to USD if requested and price is provided
-  const value = displayUnit === 'usd' && price ? size * price : size;
+  const value = displayUnit === "usd" && price ? size * price : size;
 
   // Quote currency display: no decimals, no symbol
-  if (displayUnit === 'usd') {
-    return Math.round(value).toLocaleString('en-US');
+  if (displayUnit === "usd") {
+    return Math.round(value).toLocaleString("en-US");
   }
 
   // Coin display: variable decimals based on value
   if (value >= 1000) {
-    return value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
   if (value >= 1) {
     return value.toFixed(3);
@@ -38,9 +38,9 @@ export function formatSize(size: number, displayUnit?: 'coin' | 'usd', price?: n
  */
 export function formatPercent(percent: number): string {
   if (Math.abs(percent) >= 1) {
-    return percent.toFixed(2) + '%';
+    return percent.toFixed(2) + "%";
   }
-  return percent.toFixed(4) + '%';
+  return percent.toFixed(4) + "%";
 }
 
 /**
@@ -48,10 +48,10 @@ export function formatPercent(percent: number): string {
  */
 export function formatTime(timestamp: number): string {
   const date = new Date(timestamp);
-  return date.toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
+  return date.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
     hour12: false,
   });
 }
@@ -61,12 +61,12 @@ export function formatTime(timestamp: number): string {
  */
 export function formatDateTime(timestamp: number): string {
   const date = new Date(timestamp);
-  return date.toLocaleString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
+  return date.toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
     hour12: false,
   });
 }
@@ -79,15 +79,15 @@ export function formatRelativeTime(timestamp: number): string {
   const diff = now - timestamp;
 
   if (diff < 1000) {
-    return 'just now';
+    return "just now";
   }
   if (diff < 60000) {
-    return Math.floor(diff / 1000) + 's ago';
+    return Math.floor(diff / 1000) + "s ago";
   }
   if (diff < 3600000) {
-    return Math.floor(diff / 60000) + 'm ago';
+    return Math.floor(diff / 60000) + "m ago";
   }
-  return Math.floor(diff / 3600000) + 'h ago';
+  return Math.floor(diff / 3600000) + "h ago";
 }
 
 /**
@@ -95,13 +95,13 @@ export function formatRelativeTime(timestamp: number): string {
  */
 export function formatCompact(value: number): string {
   if (value >= 1_000_000_000) {
-    return (value / 1_000_000_000).toFixed(2) + 'B';
+    return (value / 1_000_000_000).toFixed(2) + "B";
   }
   if (value >= 1_000_000) {
-    return (value / 1_000_000).toFixed(2) + 'M';
+    return (value / 1_000_000).toFixed(2) + "M";
   }
   if (value >= 1_000) {
-    return (value / 1_000).toFixed(2) + 'K';
+    return (value / 1_000).toFixed(2) + "K";
   }
   return value.toFixed(2);
 }
@@ -113,7 +113,7 @@ export function formatTimeRemaining(endTimestamp: number, now: number = Date.now
   const remaining = endTimestamp - now;
 
   if (remaining <= 0) {
-    return 'done';
+    return "done";
   }
 
   const seconds = Math.floor(remaining / 1000);

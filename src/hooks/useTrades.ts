@@ -4,11 +4,11 @@
  * Pure topic-based subscription - no WebSocket management boilerplate
  */
 
-import { useRef, useCallback } from 'react';
-import { useTopicSubscription } from './useTopicSubscription';
-import { useConnectionStatus } from './useConnectionStatus';
-import type { TradeItem, TradeData } from '../types/trades';
-import { MAX_TRADES_HISTORY } from '../constants/config';
+import { useRef, useCallback } from "react";
+import { useTopicSubscription } from "./useTopicSubscription";
+import { useConnectionStatus } from "./useConnectionStatus";
+import type { TradeItem, TradeData } from "../types/trades";
+import { MAX_TRADES_HISTORY } from "../constants/config";
 
 interface UseTradesResult {
   trades: TradeItem[];
@@ -62,20 +62,20 @@ export function useTrades(coin: string): UseTradesResult {
 
       if (newTrades.length > 0) {
         // Prepend new trades and limit history
-        accumulatedTradesRef.current = [
-          ...newTrades,
-          ...accumulatedTradesRef.current,
-        ].slice(0, MAX_TRADES_HISTORY);
+        accumulatedTradesRef.current = [...newTrades, ...accumulatedTradesRef.current].slice(
+          0,
+          MAX_TRADES_HISTORY,
+        );
       }
 
       return accumulatedTradesRef.current;
     },
-    [coin]
+    [coin],
   );
 
   const { data, error, isLoading } = useTopicSubscription<TradeItem[]>(
-    { type: 'trades', params: { coin } },
-    { transform }
+    { type: "trades", params: { coin } },
+    { transform },
   );
 
   return {

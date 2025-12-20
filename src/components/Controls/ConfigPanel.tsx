@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import type { OrderBookConfig } from '../../types/orderbook';
-import { Button } from '../Button';
-import { Select } from '../Select';
+import { useState, useEffect } from "react";
+import type { OrderBookConfig } from "../../types/orderbook";
+import { Button } from "../Button";
+import { Select } from "../Select";
 import {
   AVAILABLE_COINS,
   SIG_FIGS_MIN,
@@ -13,8 +13,8 @@ import {
   DEFAULT_N_SIG_FIGS,
   DEFAULT_N_LEVELS,
   DEFAULT_MANTISSA,
-} from '../../constants/config';
-import styles from './ConfigPanel.module.css';
+} from "../../constants/config";
+import styles from "./ConfigPanel.module.css";
 
 interface ConfigPanelProps {
   config: OrderBookConfig;
@@ -73,11 +73,12 @@ export function ConfigPanel({ config, onConfigChange }: ConfigPanelProps) {
         className={styles.toggleButton}
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <span className={styles.toggleIcon}>{isExpanded ? '▼' : '▶'}</span>
+        <span className={styles.toggleIcon}>{isExpanded ? "▼" : "▶"}</span>
         <span className={styles.toggleLabel}>Configuration</span>
         {!isExpanded && (
           <span className={styles.currentConfig}>
-            {config.coin} | {config.nSigFigs ? `${config.nSigFigs} figs` : 'full precision'} | {config.nLevels} levels
+            {config.coin} | {config.nSigFigs ? `${config.nSigFigs} figs` : "full precision"} |{" "}
+            {config.nLevels} levels
           </span>
         )}
       </Button>
@@ -87,11 +88,7 @@ export function ConfigPanel({ config, onConfigChange }: ConfigPanelProps) {
           <div className={styles.section}>
             <label className={styles.label}>
               <span className={styles.labelText}>Coin</span>
-              <Select
-                fullWidth
-                value={localCoin}
-                onChange={(e) => setLocalCoin(e.target.value)}
-              >
+              <Select fullWidth value={localCoin} onChange={(e) => setLocalCoin(e.target.value)}>
                 {AVAILABLE_COINS.map((coin) => (
                   <option key={coin} value={coin}>
                     {coin}
@@ -123,17 +120,17 @@ export function ConfigPanel({ config, onConfigChange }: ConfigPanelProps) {
                   className={styles.numberInput}
                   min={SIG_FIGS_MIN}
                   max={SIG_FIGS_MAX}
-                  value={localNSigFigs ?? ''}
+                  value={localNSigFigs ?? ""}
                   placeholder="Auto"
                   onChange={(e) => {
-                    const value = e.target.value === '' ? undefined : parseInt(e.target.value);
+                    const value = e.target.value === "" ? undefined : parseInt(e.target.value);
                     setLocalNSigFigs(value);
                   }}
                 />
               </div>
               <span className={styles.hint}>
                 {localNSigFigs === undefined
-                  ? 'Full precision (no bucketing)'
+                  ? "Full precision (no bucketing)"
                   : `${localNSigFigs} significant figures`}
               </span>
             </label>
@@ -157,9 +154,7 @@ export function ConfigPanel({ config, onConfigChange }: ConfigPanelProps) {
                     </label>
                   ))}
                 </div>
-                <span className={styles.hint}>
-                  Only applies when nSigFigs = 5
-                </span>
+                <span className={styles.hint}>Only applies when nSigFigs = 5</span>
               </label>
             </div>
           )}
@@ -187,9 +182,7 @@ export function ConfigPanel({ config, onConfigChange }: ConfigPanelProps) {
                   onChange={(e) => setLocalNLevels(parseInt(e.target.value))}
                 />
               </div>
-              <span className={styles.hint}>
-                {localNLevels} levels per side (bids/asks)
-              </span>
+              <span className={styles.hint}>{localNLevels} levels per side (bids/asks)</span>
             </label>
           </div>
 

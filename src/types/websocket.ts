@@ -1,6 +1,6 @@
-export type ConnectionStatus = 'connecting' | 'connected' | 'disconnected' | 'error';
+export type ConnectionStatus = "connecting" | "connected" | "disconnected" | "error";
 
-export type SubscriptionType = 'l2Book' | 'l4Book' | 'trades' | 'twap';
+export type SubscriptionType = "l2Book" | "l4Book" | "trades" | "twap";
 
 export interface BaseSubscription {
   type: SubscriptionType;
@@ -8,48 +8,52 @@ export interface BaseSubscription {
 }
 
 export interface L2BookSubscription extends BaseSubscription {
-  type: 'l2Book';
+  type: "l2Book";
   nSigFigs?: number; // 2-5
   nLevels?: number; // 1-100, default 20
   mantissa?: 2 | 5; // Only valid when nSigFigs = 5
 }
 
 export interface L4BookSubscription extends BaseSubscription {
-  type: 'l4Book';
+  type: "l4Book";
 }
 
 export interface TradesSubscription extends BaseSubscription {
-  type: 'trades';
+  type: "trades";
 }
 
 export interface TwapSubscription extends BaseSubscription {
-  type: 'twap';
+  type: "twap";
 }
 
-export type Subscription = L2BookSubscription | L4BookSubscription | TradesSubscription | TwapSubscription;
+export type Subscription =
+  | L2BookSubscription
+  | L4BookSubscription
+  | TradesSubscription
+  | TwapSubscription;
 
 export interface SubscribeMessage {
-  method: 'subscribe';
+  method: "subscribe";
   subscription: Subscription;
 }
 
 export interface UnsubscribeMessage {
-  method: 'unsubscribe';
+  method: "unsubscribe";
   subscription: Subscription;
 }
 
 export type OutgoingMessage = SubscribeMessage | UnsubscribeMessage;
 
 export interface SubscriptionResponse {
-  channel: 'subscriptionResponse';
+  channel: "subscriptionResponse";
   data: {
-    method: 'subscribe' | 'unsubscribe';
+    method: "subscribe" | "unsubscribe";
     subscription: Subscription;
   };
 }
 
 export interface ErrorMessage {
-  channel: 'error';
+  channel: "error";
   data: string;
 }
 

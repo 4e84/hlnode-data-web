@@ -8,13 +8,9 @@
  * - Message routing to registered callbacks
  */
 
-import {
-  DEFAULT_WS_URL,
-  RECONNECT_DELAY_MS,
-  MAX_RECONNECT_DELAY_MS,
-} from '../constants/config';
+import { DEFAULT_WS_URL, RECONNECT_DELAY_MS, MAX_RECONNECT_DELAY_MS } from "../constants/config";
 
-export type ConnectionStatus = 'connecting' | 'connected' | 'disconnected' | 'error';
+export type ConnectionStatus = "connecting" | "connected" | "disconnected" | "error";
 
 type MessageCallback = (data: unknown) => void;
 type StatusCallback = (status: ConnectionStatus) => void;
@@ -37,7 +33,7 @@ class WebSocketManager {
   private maxReconnectAttempts = 10;
   private reconnectTimeout: ReturnType<typeof setTimeout> | null = null;
   private url: string;
-  private status: ConnectionStatus = 'disconnected';
+  private status: ConnectionStatus = "disconnected";
   private statusListeners = new Set<StatusCallback>();
 
   constructor(url: string) {
@@ -53,14 +49,14 @@ class WebSocketManager {
       return;
     }
 
-    this.setStatus('connecting');
+    this.setStatus("connecting");
 
     try {
       this.socket = new WebSocket(this.url);
 
       this.socket.onopen = () => {
         this.reconnectAttempts = 0;
-        this.setStatus('connected');
+        this.setStatus("connected");
         // Re-subscribe all active subscriptions
         this.subscriptions.forEach((sub) => {
           this.sendSubscribe(sub.type, sub.params);
@@ -72,22 +68,22 @@ class WebSocketManager {
           const message = JSON.parse(event.data) as WebSocketMessage;
           this.routeMessage(message);
         } catch (e) {
-          console.error('[WebSocketManager] Failed to parse message:', e);
+          console.error("[WebSocketManager] Failed to parse message:", e);
         }
       };
 
       this.socket.onclose = () => {
-        this.setStatus('disconnected');
+        this.setStatus("disconnected");
         this.attemptReconnect();
       };
 
       this.socket.onerror = (error) => {
-        console.error('[WebSocketManager] WebSocket error:', error);
-        this.setStatus('error');
+        console.error("[WebSocketManager] WebSocket error:", error);
+        this.setStatus("error");
       };
     } catch (error) {
-      console.error('[WebSocketManager] Failed to connect:', error);
-      this.setStatus('error');
+      console.error("[WebSocketManager] Failed to connect:", error);
+      this.setStatus("error");
       this.attemptReconnect();
     }
   }
@@ -96,11 +92,7 @@ class WebSocketManager {
    * Subscribe to a topic with given parameters
    * Returns an unsubscribe function
    */
-  subscribe(
-    type: string,
-    params: Record<string, unknown>,
-    callback: MessageCallback
-  ): () => void {
+  subscribe(type: string, params: Record<string, unknown>, callback: MessageCallback): () => void {
     const key = this.buildKey(type, params);
 
     // Ensure connection is established
@@ -187,17 +179,20 @@ class WebSocketManager {
       this.socket.close();
       this.socket = null;
     }
-    this.setStatus('disconnected');
+    this.setStatus("disconnected");
   }
 
   private buildKey(type: string, params: Record<string, unknown>): string {
     // Sort params for consistent key generation
     const sortedParams = Object.keys(params)
       .sort()
-      .reduce((acc, key) => {
-        acc[key] = params[key];
-        return acc;
-      }, {} as Record<string, unknown>);
+      .reduce(
+        (acc, key) => {
+          acc[key] = params[key];
+          return acc;
+        },
+        {} as Record<string, unknown>,
+      );
     return `${type}:${JSON.stringify(sortedParams)}`;
   }
 
@@ -212,18 +207,14 @@ class WebSocketManager {
     });
   }
 
-  private matchesChannel(
-    sub: Subscription,
-    channel: string,
-    data: unknown
-  ): boolean {
+  private matchesChannel(sub: Subscription, channel: string, data: unknown): boolean {
     // Channel must match subscription type
     if (sub.type !== channel) {
       return false;
     }
 
     // For coin-specific subscriptions, check if coin matches
-    if (sub.params.coin && typeof data === 'object' && data !== null) {
+    if (sub.params.coin && typeof data === "object" && data !== null) {
       const dataObj = data as Record<string, unknown>;
       // Handle both single items and arrays
       if (Array.isArray(dataObj)) {
@@ -238,14 +229,14 @@ class WebSocketManager {
 
   private sendSubscribe(type: string, params: Record<string, unknown>): void {
     this.send({
-      method: 'subscribe',
+      method: "subscribe",
       subscription: { type, ...params },
     });
   }
 
   private sendUnsubscribe(type: string, params: Record<string, unknown>): void {
     this.send({
-      method: 'unsubscribe',
+      method: "unsubscribe",
       subscription: { type, ...params },
     });
   }
@@ -263,20 +254,20 @@ class WebSocketManager {
 
   private attemptReconnect(): void {
     if (this.reconnectAttempts >= this.maxReconnectAttempts) {
-      console.error('[WebSocketManager] Max reconnect attempts reached');
-      this.setStatus('error');
+      console.error("[WebSocketManager] Max reconnect attempts reached");
+      this.setStatus("error");
       return;
     }
 
     // Exponential backoff
     const delay = Math.min(
       RECONNECT_DELAY_MS * Math.pow(2, this.reconnectAttempts),
-      MAX_RECONNECT_DELAY_MS
+      MAX_RECONNECT_DELAY_MS,
     );
 
     this.reconnectAttempts++;
     console.log(
-      `[WebSocketManager] Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts})`
+      `[WebSocketManager] Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts})`,
     );
 
     this.reconnectTimeout = setTimeout(() => {

@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useCallback, useEffect, useMemo } from 'react';
-import { useUrlParams } from '../hooks/useUrlParams';
-import type { OrderBookConfig } from '../types/orderbook';
+import React, { createContext, useContext, useState, useCallback, useEffect, useMemo } from "react";
+import { useUrlParams } from "../hooks/useUrlParams";
+import type { OrderBookConfig } from "../types/orderbook";
 
 interface CoinContextValue {
   coin: string;
@@ -14,7 +14,7 @@ const CoinContext = createContext<CoinContextValue | null>(null);
 export function useCoinContext(): CoinContextValue {
   const context = useContext(CoinContext);
   if (!context) {
-    throw new Error('useCoinContext must be used within CoinProvider');
+    throw new Error("useCoinContext must be used within CoinProvider");
   }
   return context;
 }
@@ -32,30 +32,39 @@ export function CoinProvider({ children }: CoinProviderProps) {
     setConfig(urlConfig);
   }, [urlConfig]);
 
-  const setCoin = useCallback((coin: string) => {
-    const newConfig: OrderBookConfig = {
-      ...config,
-      coin,
-      // Reset bucket to trigger auto-calculation for new price
-      bucketSize: undefined,
-      nSigFigs: undefined,
-      mantissa: undefined,
-    };
-    setConfig(newConfig);
-    updateUrl(newConfig);
-  }, [config, updateUrl]);
+  const setCoin = useCallback(
+    (coin: string) => {
+      const newConfig: OrderBookConfig = {
+        ...config,
+        coin,
+        // Reset bucket to trigger auto-calculation for new price
+        bucketSize: undefined,
+        nSigFigs: undefined,
+        mantissa: undefined,
+      };
+      setConfig(newConfig);
+      updateUrl(newConfig);
+    },
+    [config, updateUrl],
+  );
 
-  const updateConfig = useCallback((newConfig: OrderBookConfig) => {
-    setConfig(newConfig);
-    updateUrl(newConfig);
-  }, [updateUrl]);
+  const updateConfig = useCallback(
+    (newConfig: OrderBookConfig) => {
+      setConfig(newConfig);
+      updateUrl(newConfig);
+    },
+    [updateUrl],
+  );
 
-  const value = useMemo<CoinContextValue>(() => ({
-    coin: config.coin,
-    setCoin,
-    config,
-    updateConfig,
-  }), [config, setCoin, updateConfig]);
+  const value = useMemo<CoinContextValue>(
+    () => ({
+      coin: config.coin,
+      setCoin,
+      config,
+      updateConfig,
+    }),
+    [config, setCoin, updateConfig],
+  );
 
   return <CoinContext.Provider value={value}>{children}</CoinContext.Provider>;
 }

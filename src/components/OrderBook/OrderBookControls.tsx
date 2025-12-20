@@ -1,15 +1,15 @@
-import { useMemo } from 'react';
-import type { OrderBookConfig } from '../../types/orderbook';
-import { useDisplayConfig } from '../../context/DisplayConfigContext';
-import { Button } from '../Button';
-import { Select } from '../Select';
+import { useMemo } from "react";
+import type { OrderBookConfig } from "../../types/orderbook";
+import { useDisplayConfig } from "../../context/DisplayConfigContext";
+import { Button } from "../Button";
+import { Select } from "../Select";
 import {
   generateBucketOptions,
   findBestBucketConfig,
   formatBucketSize,
   selectDefaultBucket,
-} from '../../utils/bucketSizeUtils';
-import styles from './OrderBookControls.module.css';
+} from "../../utils/bucketSizeUtils";
+import styles from "./OrderBookControls.module.css";
 
 interface OrderBookControlsProps {
   config: OrderBookConfig;
@@ -17,7 +17,11 @@ interface OrderBookControlsProps {
   currentPrice: number;
 }
 
-export function OrderBookControls({ config, onConfigChange, currentPrice }: OrderBookControlsProps) {
+export function OrderBookControls({
+  config,
+  onConfigChange,
+  currentPrice,
+}: OrderBookControlsProps) {
   const { layout, setLayout } = useDisplayConfig();
 
   // Generate available bucket options based on current price
@@ -51,29 +55,21 @@ export function OrderBookControls({ config, onConfigChange, currentPrice }: Orde
   };
 
   const handleLayoutToggle = () => {
-    setLayout(layout === 'horizontal' ? 'vertical' : 'horizontal');
+    setLayout(layout === "horizontal" ? "vertical" : "horizontal");
   };
 
   return (
     <div className={styles.controls}>
       <div className={styles.leftGroup}>
-        <Select
-          value={currentBucket.toString()}
-          onChange={handleBucketChange}
-          title="Bucket size"
-        >
-          {bucketOptions.map(bucket => (
+        <Select value={currentBucket.toString()} onChange={handleBucketChange} title="Bucket size">
+          {bucketOptions.map((bucket) => (
             <option key={bucket} value={bucket.toString()}>
               {formatBucketSize(bucket)}
             </option>
           ))}
         </Select>
 
-        <Select
-          value={config.nLevels}
-          onChange={handleLevelsChange}
-          title="Number of levels"
-        >
+        <Select value={config.nLevels} onChange={handleLevelsChange} title="Number of levels">
           <option value="10">10 levels</option>
           <option value="20">20 levels</option>
           <option value="50">50 levels</option>
@@ -82,12 +78,8 @@ export function OrderBookControls({ config, onConfigChange, currentPrice }: Orde
       </div>
 
       <div className={styles.rightGroup}>
-        <Button
-          variant="secondary"
-          onClick={handleLayoutToggle}
-          title="Toggle layout"
-        >
-          {layout === 'horizontal' ? 'Horizontal' : 'Vertical'}
+        <Button variant="secondary" onClick={handleLayoutToggle} title="Toggle layout">
+          {layout === "horizontal" ? "Horizontal" : "Vertical"}
         </Button>
       </div>
     </div>

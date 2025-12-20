@@ -8,13 +8,9 @@
  * - Validates and sanitizes all parameters
  */
 
-import { useState, useEffect, useCallback } from 'react';
-import type { OrderBookConfig } from '../types/orderbook';
-import {
-  parseUrlParams,
-  validateUrlParams,
-  serializeConfig,
-} from '../utils/urlParamValidation';
+import { useState, useEffect, useCallback } from "react";
+import type { OrderBookConfig } from "../types/orderbook";
+import { parseUrlParams, validateUrlParams, serializeConfig } from "../utils/urlParamValidation";
 
 interface UseUrlParamsResult {
   config: OrderBookConfig;
@@ -45,10 +41,10 @@ export function useUrlParams(): UseUrlParamsResult {
       setConfig(newConfig);
     };
 
-    window.addEventListener('popstate', handlePopState);
+    window.addEventListener("popstate", handlePopState);
 
     return () => {
-      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener("popstate", handlePopState);
     };
   }, [loadConfigFromUrl]);
 
@@ -67,7 +63,7 @@ export function useUrlParams(): UseUrlParamsResult {
       : window.location.pathname;
 
     // Use replaceState to update URL without adding history entry
-    window.history.replaceState(null, '', newUrl);
+    window.history.replaceState(null, "", newUrl);
   }, []);
 
   return {

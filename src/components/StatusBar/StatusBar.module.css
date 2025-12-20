@@ -31,7 +31,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -84,7 +85,7 @@
 .metricValue {
   color: #c9d1d9;
   font-weight: 600;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
 }
 
 .url {
@@ -99,7 +100,7 @@
 
 .urlValue {
   color: #58a6ff;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
 }
 
 @media (max-width: 768px) {

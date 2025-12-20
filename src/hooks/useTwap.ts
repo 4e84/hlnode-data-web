@@ -5,13 +5,13 @@
  * Uses Zustand store for complex state accumulation and localStorage persistence.
  */
 
-import { useEffect, useRef, useCallback } from 'react';
-import { useConnectionStatus } from './useConnectionStatus';
-import { wsManager } from '../services/websocketManager';
-import { useTwapStore } from '../stores';
-import { cleanupExpiredTwaps } from '../utils/twapStorage';
-import type { TwapItem, TwapData } from '../types/twap';
-import type { TradeData } from '../types/trades';
+import { useEffect, useRef, useCallback } from "react";
+import { useConnectionStatus } from "./useConnectionStatus";
+import { wsManager } from "../services/websocketManager";
+import { useTwapStore } from "../stores";
+import { cleanupExpiredTwaps } from "../utils/twapStorage";
+import type { TwapItem, TwapData } from "../types/twap";
+import type { TradeData } from "../types/trades";
 
 interface UseTwapResult {
   twapStatuses: TwapItem[];
@@ -74,7 +74,7 @@ export function useTwap(coin: string): UseTwapResult {
         updateFromTwapMessage(filtered);
       }
     },
-    [updateFromTwapMessage]
+    [updateFromTwapMessage],
   );
 
   // Trades message handler (for fills)
@@ -83,32 +83,24 @@ export function useTwap(coin: string): UseTwapResult {
       const tradesData = data as TradeData[];
       // Filter for current coin and trades with twapId
       const filtered = tradesData.filter(
-        (t) => t.coin === currentCoinRef.current && t.twapId !== undefined
+        (t) => t.coin === currentCoinRef.current && t.twapId !== undefined,
       );
       if (filtered.length > 0) {
         updateFromTradesMessage(filtered);
       }
     },
-    [updateFromTradesMessage]
+    [updateFromTradesMessage],
   );
 
   // Subscribe to TWAP channel
   useEffect(() => {
-    const unsubscribe = wsManager.subscribe(
-      'twap',
-      { coin },
-      handleTwapMessage
-    );
+    const unsubscribe = wsManager.subscribe("twap", { coin }, handleTwapMessage);
     return unsubscribe;
   }, [coin, handleTwapMessage]);
 
   // Subscribe to trades channel (for fills)
   useEffect(() => {
-    const unsubscribe = wsManager.subscribe(
-      'trades',
-      { coin },
-      handleTradesMessage
-    );
+    const unsubscribe = wsManager.subscribe("trades", { coin }, handleTradesMessage);
     return unsubscribe;
   }, [coin, handleTradesMessage]);
 

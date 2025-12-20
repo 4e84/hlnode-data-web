@@ -1,9 +1,9 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback } from "react";
 
-const STORAGE_KEY = 'orderbook-display-config';
+const STORAGE_KEY = "orderbook-display-config";
 
-export type Layout = 'vertical' | 'horizontal';
-export type DisplayUnit = 'coin' | 'usd';
+export type Layout = "vertical" | "horizontal";
+export type DisplayUnit = "coin" | "usd";
 
 interface DisplayConfig {
   layout: Layout;
@@ -18,8 +18,8 @@ interface DisplayConfigContextValue {
 }
 
 const defaultConfig: DisplayConfig = {
-  layout: 'vertical',
-  displayUnit: 'coin',
+  layout: "vertical",
+  displayUnit: "coin",
 };
 
 function loadFromStorage(): DisplayConfig {
@@ -28,8 +28,8 @@ function loadFromStorage(): DisplayConfig {
     if (saved) {
       const parsed = JSON.parse(saved);
       return {
-        layout: parsed.layout === 'horizontal' ? 'horizontal' : 'vertical',
-        displayUnit: parsed.displayUnit === 'usd' ? 'usd' : 'coin',
+        layout: parsed.layout === "horizontal" ? "horizontal" : "vertical",
+        displayUnit: parsed.displayUnit === "usd" ? "usd" : "coin",
       };
     }
   } catch {
@@ -51,7 +51,7 @@ const DisplayConfigContext = createContext<DisplayConfigContextValue | null>(nul
 export function useDisplayConfig(): DisplayConfigContextValue {
   const context = useContext(DisplayConfigContext);
   if (!context) {
-    throw new Error('useDisplayConfig must be used within DisplayConfigProvider');
+    throw new Error("useDisplayConfig must be used within DisplayConfigProvider");
   }
   return context;
 }
@@ -64,7 +64,7 @@ export function DisplayConfigProvider({ children }: DisplayConfigProviderProps) 
   const [config, setConfig] = useState<DisplayConfig>(loadFromStorage);
 
   const setLayout = useCallback((layout: Layout) => {
-    setConfig(prev => {
+    setConfig((prev) => {
       const newConfig = { ...prev, layout };
       saveToStorage(newConfig);
       return newConfig;
@@ -72,7 +72,7 @@ export function DisplayConfigProvider({ children }: DisplayConfigProviderProps) 
   }, []);
 
   const setDisplayUnit = useCallback((displayUnit: DisplayUnit) => {
-    setConfig(prev => {
+    setConfig((prev) => {
       const newConfig = { ...prev, displayUnit };
       saveToStorage(newConfig);
       return newConfig;
@@ -86,9 +86,5 @@ export function DisplayConfigProvider({ children }: DisplayConfigProviderProps) 
     setDisplayUnit,
   };
 
-  return (
-    <DisplayConfigContext.Provider value={value}>
-      {children}
-    </DisplayConfigContext.Provider>
-  );
+  return <DisplayConfigContext.Provider value={value}>{children}</DisplayConfigContext.Provider>;
 }

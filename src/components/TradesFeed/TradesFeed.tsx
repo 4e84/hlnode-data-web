@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
-import { useCoinContext } from '../../context/CoinContext';
-import { useDisplayConfig } from '../../context/DisplayConfigContext';
-import { useTrades } from '../../hooks/useTrades';
-import { TradeItem } from './TradeItem';
-import styles from './TradesFeed.module.css';
+import { useEffect, useRef } from "react";
+import { useCoinContext } from "../../context/CoinContext";
+import { useDisplayConfig } from "../../context/DisplayConfigContext";
+import { useTrades } from "../../hooks/useTrades";
+import { TradeItem } from "./TradeItem";
+import styles from "./TradesFeed.module.css";
 
 export function TradesFeed() {
   const { coin } = useCoinContext();
@@ -20,23 +20,23 @@ export function TradesFeed() {
     prevTradesLengthRef.current = trades.length;
   }, [trades.length]);
 
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.headerLabels}>
           <span>PRICE</span>
-          <span>SIZE ({displayUnit === 'usd' ? 'USD' : coin.toUpperCase()})</span>
+          <span>SIZE ({displayUnit === "usd" ? "USD" : coin.toUpperCase()})</span>
           <span>TIME</span>
         </div>
       </div>
 
       <div className={styles.trades} ref={containerRef}>
         {trades.length === 0 ? (
-          <div className={styles.empty}>
-          </div>
+          <div className={styles.empty}></div>
         ) : (
-          trades.map((trade) => <TradeItem key={trade.id} trade={trade} displayUnit={displayUnit} />)
+          trades.map((trade) => (
+            <TradeItem key={trade.id} trade={trade} displayUnit={displayUnit} />
+          ))
         )}
       </div>
     </div>

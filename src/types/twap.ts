@@ -1,25 +1,25 @@
-export type TwapSide = 'A' | 'B'; // A = Ask/Sell, B = Bid/Buy
+export type TwapSide = "A" | "B"; // A = Ask/Sell, B = Bid/Buy
 
-export type TwapStatusType = 'running' | 'finished' | 'cancelled' | 'error';
+export type TwapStatusType = "running" | "finished" | "cancelled" | "error";
 
 export interface TwapData {
   coin: string;
-  time: number;           // Block time in milliseconds
-  twapId: number;         // Unique TWAP order ID
-  user: string;           // User address (0x...)
+  time: number; // Block time in milliseconds
+  twapId: number; // Unique TWAP order ID
+  user: string; // User address (0x...)
   side: TwapSide;
-  sz: string;             // Total order size
-  executedSz: string;     // Executed size so far
-  executedNtl: string;    // Executed notional value
-  minutes: number;        // TWAP duration in minutes
+  sz: string; // Total order size
+  executedSz: string; // Executed size so far
+  executedNtl: string; // Executed notional value
+  minutes: number; // TWAP duration in minutes
   reduceOnly: boolean;
   randomize: boolean;
-  timestamp: number;      // Order creation timestamp
-  status: string;         // 'running', 'finished', 'cancelled', etc.
+  timestamp: number; // Order creation timestamp
+  status: string; // 'running', 'finished', 'cancelled', etc.
 }
 
 export interface TwapMessage {
-  channel: 'twap';
+  channel: "twap";
   data: TwapData[];
 }
 

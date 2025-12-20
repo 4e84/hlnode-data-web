@@ -3,14 +3,14 @@
  * Validates and coerces URL parameters to valid OrderBookConfig values.
  */
 
-import type { OrderBookConfig } from '../types/orderbook';
+import type { OrderBookConfig } from "../types/orderbook";
 import {
   DEFAULT_COIN,
   DEFAULT_N_LEVELS,
   DEFAULT_N_SIG_FIGS,
   LEVELS_MIN,
   LEVELS_MAX,
-} from '../constants/config';
+} from "../constants/config";
 
 interface UrlParams {
   symbol?: string | null;
@@ -44,7 +44,7 @@ export function validateUrlParams(params: UrlParams): OrderBookConfig {
  * @returns Validated symbol or default
  */
 function validateSymbol(symbol?: string | null): string {
-  if (!symbol || typeof symbol !== 'string') {
+  if (!symbol || typeof symbol !== "string") {
     return DEFAULT_COIN;
   }
 
@@ -68,7 +68,7 @@ function validateSymbol(symbol?: string | null): string {
  * @returns Validated levels or default
  */
 function validateLevels(levels?: string | null): number {
-  if (!levels || typeof levels !== 'string') {
+  if (!levels || typeof levels !== "string") {
     return DEFAULT_N_LEVELS;
   }
 
@@ -97,7 +97,7 @@ function validateLevels(levels?: string | null): number {
  * @returns Partial config with bucket-related fields
  */
 function validateBucket(bucket?: string | null): Partial<OrderBookConfig> {
-  if (!bucket || typeof bucket !== 'string') {
+  if (!bucket || typeof bucket !== "string") {
     // Default: auto bucket calculation (nSigFigs = 4)
     return {
       nSigFigs: DEFAULT_N_SIG_FIGS,
@@ -109,7 +109,7 @@ function validateBucket(bucket?: string | null): Partial<OrderBookConfig> {
   const normalized = bucket.toLowerCase().trim();
 
   // Handle "auto" - use default calculation
-  if (normalized === 'auto') {
+  if (normalized === "auto") {
     return {
       nSigFigs: DEFAULT_N_SIG_FIGS,
       mantissa: undefined,
@@ -118,7 +118,7 @@ function validateBucket(bucket?: string | null): Partial<OrderBookConfig> {
   }
 
   // Handle "full" or "0" - no bucketing
-  if (normalized === 'full' || normalized === '0') {
+  if (normalized === "full" || normalized === "0") {
     return {
       nSigFigs: undefined,
       mantissa: undefined,
@@ -156,9 +156,9 @@ function validateBucket(bucket?: string | null): Partial<OrderBookConfig> {
  */
 export function parseUrlParams(searchParams: URLSearchParams): UrlParams {
   return {
-    symbol: searchParams.get('symbol'),
-    bucket: searchParams.get('bucket'),
-    levels: searchParams.get('levels'),
+    symbol: searchParams.get("symbol"),
+    bucket: searchParams.get("bucket"),
+    levels: searchParams.get("levels"),
   };
 }
 
@@ -174,24 +174,24 @@ export function serializeConfig(config: OrderBookConfig): URLSearchParams {
 
   // Only add symbol if not default
   if (config.coin !== DEFAULT_COIN) {
-    params.set('symbol', config.coin);
+    params.set("symbol", config.coin);
   }
 
   // Only add bucket if not auto/default
   if (config.bucketSize !== undefined) {
     if (config.bucketSize === 0) {
-      params.set('bucket', 'full');
+      params.set("bucket", "full");
     } else {
-      params.set('bucket', config.bucketSize.toString());
+      params.set("bucket", config.bucketSize.toString());
     }
   } else if (config.nSigFigs !== DEFAULT_N_SIG_FIGS) {
     // If bucketSize not set but nSigFigs is non-default, use "auto"
-    params.set('bucket', 'auto');
+    params.set("bucket", "auto");
   }
 
   // Only add levels if not default
   if (config.nLevels !== DEFAULT_N_LEVELS) {
-    params.set('levels', config.nLevels.toString());
+    params.set("levels", config.nLevels.toString());
   }
 
   return params;

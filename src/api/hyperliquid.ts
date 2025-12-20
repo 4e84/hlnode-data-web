@@ -2,7 +2,7 @@
  * Hyperliquid API client for fetching metadata
  */
 
-const HYPERLIQUID_API_URL = 'https://api.hyperliquid.xyz/info';
+const HYPERLIQUID_API_URL = "https://api.hyperliquid.xyz/info";
 
 interface UniverseAsset {
   name: string;
@@ -26,11 +26,11 @@ interface MetaResponse {
 export async function fetchAvailableSymbols(): Promise<string[]> {
   try {
     const response = await fetch(HYPERLIQUID_API_URL, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ type: 'meta' }),
+      body: JSON.stringify({ type: "meta" }),
     });
 
     if (!response.ok) {
@@ -47,7 +47,7 @@ export async function fetchAvailableSymbols(): Promise<string[]> {
 
     return symbols;
   } catch (error) {
-    console.error('Failed to fetch symbols from Hyperliquid API:', error);
+    console.error("Failed to fetch symbols from Hyperliquid API:", error);
     throw error;
   }
 }

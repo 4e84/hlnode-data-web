@@ -1,17 +1,17 @@
-import { memo } from 'react';
-import type { OrderBookLevel as OrderBookLevelType } from '../../types/orderbook';
-import { formatPrice, formatSize } from '../../utils/formatters';
-import { parseLevelPrice, parseLevelSize, calculateDepthBarWidth } from '../../utils/calculations';
-import styles from './OrderBook.module.css';
+import { memo } from "react";
+import type { OrderBookLevel as OrderBookLevelType } from "../../types/orderbook";
+import { formatPrice, formatSize } from "../../utils/formatters";
+import { parseLevelPrice, parseLevelSize, calculateDepthBarWidth } from "../../utils/calculations";
+import styles from "./OrderBook.module.css";
 
 interface OrderBookLevelProps {
   level: OrderBookLevelType;
-  side: 'bid' | 'ask';
+  side: "bid" | "ask";
   maxTotal: number;
   maxSize: number;
   total: number;
-  displayUnit?: 'coin' | 'usd';
-  layout?: 'vertical' | 'horizontal';
+  displayUnit?: "coin" | "usd";
+  layout?: "vertical" | "horizontal";
   reversed?: boolean;
 }
 
@@ -30,14 +30,12 @@ export const OrderBookLevel = memo(function OrderBookLevel({
   const totalBarWidth = calculateDepthBarWidth(total, maxTotal);
   const sizeBarWidth = calculateDepthBarWidth(size, maxSize);
 
-  const depthBarClasses = layout === 'horizontal'
-    ? `${styles.depthBarTotal} ${styles.horizontal}`
-    : styles.depthBarTotal;
-  const sizeBarClasses = layout === 'horizontal'
-    ? `${styles.depthBarSize} ${styles.horizontal}`
-    : styles.depthBarSize;
+  const depthBarClasses =
+    layout === "horizontal" ? `${styles.depthBarTotal} ${styles.horizontal}` : styles.depthBarTotal;
+  const sizeBarClasses =
+    layout === "horizontal" ? `${styles.depthBarSize} ${styles.horizontal}` : styles.depthBarSize;
 
-  const levelClasses = `${styles.level} ${styles[side]}${reversed ? ` ${styles.levelMirrored}` : ''}`;
+  const levelClasses = `${styles.level} ${styles[side]}${reversed ? ` ${styles.levelMirrored}` : ""}`;
 
   return (
     <div className={levelClasses}>

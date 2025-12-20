@@ -94,11 +94,13 @@ npm run preview
 ## UI Components
 
 ### Header
+
 - Displays coin symbol and market type
 - Shows mid price, spread, and last update time
 - Updates in real-time with orderbook data
 
 ### Configuration Panel
+
 - **Coin Selector** - Choose from available coins (BTC, ETH, SOL, etc.)
 - **Significant Figures** - Control price bucketing (2-5)
   - Lower = more aggregation (e.g., $100 buckets)
@@ -111,6 +113,7 @@ npm run preview
 - Apply button to update subscriptions
 
 ### Order Book
+
 - **Bids** (green) - Buy orders, best bid at top
 - **Asks** (red) - Sell orders, best ask at bottom
 - **Spread** - Difference between best bid and ask
@@ -119,6 +122,7 @@ npm run preview
 - Scrollable for viewing many levels
 
 ### Trades Feed
+
 - Recent executed trades stream
 - Color-coded by side (green = buy, red = sell)
 - Shows time, price, size, and side
@@ -126,6 +130,7 @@ npm run preview
 - Maintains history of last 100 trades
 
 ### Status Bar
+
 - Connection status indicator
 - Update count and rate (updates/sec)
 - WebSocket URL display
@@ -170,8 +175,8 @@ npm run preview
 
 The `nSigFigs` parameter controls how prices are grouped:
 
-| Coin | Price Range | nSigFigs | Bucket Size | Example |
-|------|-------------|----------|-------------|---------|
+| Coin | Price Range | nSigFigs | Bucket Size | Example  |
+| ---- | ----------- | -------- | ----------- | -------- |
 | BTC  | ~$100,000   | 3        | ~$1,000     | $106,000 |
 | BTC  | ~$100,000   | 4        | ~$100       | $106,200 |
 | BTC  | ~$100,000   | 5        | ~$10        | $106,210 |
@@ -222,6 +227,7 @@ App
 **Error:** Connection refused or timeout
 
 **Solution:**
+
 1. Ensure the WebSocket server is running:
    ```bash
    ps aux | grep websocket_server
@@ -238,6 +244,7 @@ App
 **Error:** Connected but orderbook/trades are empty
 
 **Solution:**
+
 1. Wait 10-15 seconds for initial data
 2. Check that the selected coin is supported
 3. Verify the Hyperliquid node is synced (see [main README](../../README.md))
@@ -248,6 +255,7 @@ App
 **Error:** Changing settings doesn't update the orderbook
 
 **Solution:**
+
 1. Click the "Apply Changes" button after modifying settings
 2. Wait for the new subscription to complete
 3. Check browser console for error messages
@@ -255,6 +263,7 @@ App
 ### High CPU Usage
 
 **Solution:**
+
 1. Reduce number of levels (try 20-30 instead of 100)
 2. Close other browser tabs
 3. Check if hardware acceleration is enabled in browser
@@ -264,6 +273,7 @@ App
 **Error:** UI looks broken or misaligned
 
 **Solution:**
+
 1. Hard refresh the page (Ctrl+F5 or Cmd+Shift+R)
 2. Clear browser cache
 3. Ensure browser is up to date
@@ -309,6 +319,7 @@ src/
 ### Adding a New Coin
 
 1. Add the coin symbol to `AVAILABLE_COINS` in `src/constants/config.ts`:
+
    ```typescript
    export const AVAILABLE_COINS = [
      'BTC',
@@ -323,6 +334,7 @@ src/
 ### Customizing the Theme
 
 Edit CSS Module files in each component directory:
+
 - `OrderBook.module.css` - Orderbook styling
 - `TradesFeed.module.css` - Trades styling
 - `ConfigPanel.module.css` - Controls styling
@@ -343,6 +355,7 @@ MIT
 ## Support
 
 For issues or questions:
+
 1. Check the [Troubleshooting](#troubleshooting) section
 2. Review server logs for WebSocket errors
 3. Check browser console for client-side errors

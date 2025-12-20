@@ -1,6 +1,6 @@
-export const DEFAULT_WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws';
+export const DEFAULT_WS_URL = import.meta.env.VITE_WS_URL || "ws://localhost:8000/ws";
 
-export const DEFAULT_COIN = 'BTC';
+export const DEFAULT_COIN = "BTC";
 
 export const DEFAULT_N_SIG_FIGS = 4;
 
@@ -8,9 +8,9 @@ export const DEFAULT_N_LEVELS = 100;
 
 export const DEFAULT_MANTISSA: 2 | 5 = 5;
 
-export const DEFAULT_DISPLAY_UNIT: 'coin' | 'usd' = 'coin';
+export const DEFAULT_DISPLAY_UNIT: "coin" | "usd" = "coin";
 
-export const DEFAULT_LAYOUT: 'vertical' | 'horizontal' = 'horizontal';
+export const DEFAULT_LAYOUT: "vertical" | "horizontal" = "horizontal";
 
 /**
  * Fallback list of available perpetual symbols.
@@ -21,24 +21,24 @@ export const DEFAULT_LAYOUT: 'vertical' | 'horizontal' = 'horizontal';
  * for backwards compatibility and offline fallback.
  */
 export const AVAILABLE_COINS = [
-  'BTC',
-  'ETH',
-  'SOL',
-  'ARB',
-  'MATIC',
-  'AVAX',
-  'OP',
-  'APE',
-  'DOGE',
-  'SHIB',
-  'LINK',
-  'UNI',
-  'AAVE',
-  'CRV',
-  'LDO',
-  'MKR',
-  'SNX',
-  'BLUR',
+  "BTC",
+  "ETH",
+  "SOL",
+  "ARB",
+  "MATIC",
+  "AVAX",
+  "OP",
+  "APE",
+  "DOGE",
+  "SHIB",
+  "LINK",
+  "UNI",
+  "AAVE",
+  "CRV",
+  "LDO",
+  "MKR",
+  "SNX",
+  "BLUR",
 ] as const;
 
 export const SIG_FIGS_MIN = 2;

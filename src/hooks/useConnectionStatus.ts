@@ -4,8 +4,8 @@
  * Uses React 18's useSyncExternalStore for tear-safe subscriptions
  */
 
-import { useSyncExternalStore } from 'react';
-import { wsManager, type ConnectionStatus } from '../services/websocketManager';
+import { useSyncExternalStore } from "react";
+import { wsManager, type ConnectionStatus } from "../services/websocketManager";
 
 export interface UseConnectionStatusResult {
   status: ConnectionStatus;
@@ -37,13 +37,13 @@ export function useConnectionStatus(): UseConnectionStatusResult {
   const status = useSyncExternalStore(
     wsManager.subscribeToStatus,
     wsManager.getStatus,
-    wsManager.getStatus // Server snapshot (same as client for WebSocket)
+    wsManager.getStatus, // Server snapshot (same as client for WebSocket)
   );
 
   return {
     status,
     url: wsManager.getUrl(),
-    isConnected: status === 'connected',
+    isConnected: status === "connected",
     reconnect: () => wsManager.reconnect(),
   };
 }

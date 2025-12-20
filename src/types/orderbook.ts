@@ -1,7 +1,7 @@
 export interface OrderBookLevel {
   px: string; // Price as decimal string
   sz: string; // Size as decimal string
-  n: number;  // Number of orders
+  n: number; // Number of orders
 }
 
 export interface L2BookData {
@@ -11,7 +11,7 @@ export interface L2BookData {
 }
 
 export interface L2BookMessage {
-  channel: 'l2Book';
+  channel: "l2Book";
   data: L2BookData;
 }
 

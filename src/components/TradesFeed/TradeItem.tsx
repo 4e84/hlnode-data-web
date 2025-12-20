@@ -1,8 +1,8 @@
-import { memo } from 'react';
-import type { TradeItem as TradeItemType } from '../../types/trades';
-import type { DisplayUnit } from '../../context/DisplayConfigContext';
-import { formatPrice, formatSize, formatTime } from '../../utils/formatters';
-import styles from './TradesFeed.module.css';
+import { memo } from "react";
+import type { TradeItem as TradeItemType } from "../../types/trades";
+import type { DisplayUnit } from "../../context/DisplayConfigContext";
+import { formatPrice, formatSize, formatTime } from "../../utils/formatters";
+import styles from "./TradesFeed.module.css";
 
 interface TradeItemProps {
   trade: TradeItemType;
@@ -12,7 +12,7 @@ interface TradeItemProps {
 export const TradeItem = memo(function TradeItem({ trade, displayUnit }: TradeItemProps) {
   const price = parseFloat(trade.px);
   const size = parseFloat(trade.sz);
-  const side = trade.side === 'B' ? 'buy' : 'sell'; // B = bid/buy (taker), A = ask/sell (taker)
+  const side = trade.side === "B" ? "buy" : "sell"; // B = bid/buy (taker), A = ask/sell (taker)
 
   return (
     <div className={`${styles.trade} ${styles[side]}`}>

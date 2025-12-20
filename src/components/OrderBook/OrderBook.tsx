@@ -1,11 +1,11 @@
-import { useRef, useEffect } from 'react';
-import type { OrderBookState, OrderBookConfig } from '../../types/orderbook';
-import { useDisplayConfig } from '../../context/DisplayConfigContext';
-import { OrderBookLevel } from './OrderBookLevel';
-import { OrderBookControls } from './OrderBookControls';
-import { formatPrice } from '../../utils/formatters';
-import { calculateMaxTotal, calculateMaxSize } from '../../utils/calculations';
-import styles from './OrderBook.module.css';
+import { useRef, useEffect } from "react";
+import type { OrderBookState, OrderBookConfig } from "../../types/orderbook";
+import { useDisplayConfig } from "../../context/DisplayConfigContext";
+import { OrderBookLevel } from "./OrderBookLevel";
+import { OrderBookControls } from "./OrderBookControls";
+import { formatPrice } from "../../utils/formatters";
+import { calculateMaxTotal, calculateMaxSize } from "../../utils/calculations";
+import styles from "./OrderBook.module.css";
 
 interface OrderBookProps {
   orderBook: OrderBookState | null;
@@ -30,7 +30,7 @@ export function OrderBook({ orderBook, isLoading, error, config, onConfigChange 
 
   // Use placeholder values when orderBook is null
   const coin = orderBook?.coin || config.coin;
-  const quoteCurrency = orderBook?.quoteCurrency || 'USD';
+  const quoteCurrency = orderBook?.quoteCurrency || "USD";
   const bids = orderBook?.bids || [];
   const asks = orderBook?.asks || [];
   const midPrice = orderBook?.midPrice || 0;
@@ -59,21 +59,17 @@ export function OrderBook({ orderBook, isLoading, error, config, onConfigChange 
 
   return (
     <div className={styles.container}>
-      <OrderBookControls
-        config={config}
-        onConfigChange={onConfigChange}
-        currentPrice={midPrice}
-      />
+      <OrderBookControls config={config} onConfigChange={onConfigChange} currentPrice={midPrice} />
 
-      {layout === 'vertical' ? (
+      {layout === "vertical" ? (
         <>
           <div className={styles.header}>
             <span className={styles.headerLabel}>PRICE</span>
             <span className={styles.headerLabel}>
-              TOTAL ({displayUnit === 'coin' ? coin : quoteCurrency})
+              TOTAL ({displayUnit === "coin" ? coin : quoteCurrency})
             </span>
             <span className={styles.headerLabel}>
-              SIZE ({displayUnit === 'coin' ? coin : quoteCurrency})
+              SIZE ({displayUnit === "coin" ? coin : quoteCurrency})
             </span>
           </div>
 
@@ -82,7 +78,7 @@ export function OrderBook({ orderBook, isLoading, error, config, onConfigChange 
             <div className={styles.asks} ref={asksRef}>
               {asksWithTotal.length === 0 ? (
                 <div className={styles.emptyState}>
-                  {error ? `Error: ${error}` : isLoading ? 'Connecting to orderbook...' : 'No data'}
+                  {error ? `Error: ${error}` : isLoading ? "Connecting to orderbook..." : "No data"}
                 </div>
               ) : (
                 asksWithTotal.map((ask, index) => (
@@ -102,14 +98,14 @@ export function OrderBook({ orderBook, isLoading, error, config, onConfigChange 
 
             {/* Mid price indicator */}
             <div className={styles.midPriceBar}>
-              <span className={styles.midValue}>{orderBook ? formatPrice(midPrice) : '---'}</span>
+              <span className={styles.midValue}>{orderBook ? formatPrice(midPrice) : "---"}</span>
             </div>
 
             {/* Bids (bottom) */}
             <div className={styles.bids}>
               {bidsWithTotal.length === 0 ? (
                 <div className={styles.emptyState}>
-                  {error ? `Error: ${error}` : isLoading ? 'Connecting to orderbook...' : 'No data'}
+                  {error ? `Error: ${error}` : isLoading ? "Connecting to orderbook..." : "No data"}
                 </div>
               ) : (
                 bidsWithTotal.map((bid, index) => (
@@ -132,7 +128,7 @@ export function OrderBook({ orderBook, isLoading, error, config, onConfigChange 
         <>
           {/* Horizontal layout: mid price on top, asks left | bids right */}
           <div className={styles.midPriceBarHorizontal}>
-            <span className={styles.midValue}>{orderBook ? formatPrice(midPrice) : '---'}</span>
+            <span className={styles.midValue}>{orderBook ? formatPrice(midPrice) : "---"}</span>
           </div>
 
           <div className={styles.levelsHorizontal}>
@@ -141,16 +137,20 @@ export function OrderBook({ orderBook, isLoading, error, config, onConfigChange 
               <div className={styles.headerHorizontal}>
                 <span className={styles.headerLabel}>PRICE</span>
                 <span className={styles.headerLabel}>
-                  TOTAL ({displayUnit === 'coin' ? coin : quoteCurrency})
+                  TOTAL ({displayUnit === "coin" ? coin : quoteCurrency})
                 </span>
                 <span className={styles.headerLabel}>
-                  SIZE ({displayUnit === 'coin' ? coin : quoteCurrency})
+                  SIZE ({displayUnit === "coin" ? coin : quoteCurrency})
                 </span>
               </div>
               <div className={styles.asksScroll}>
                 {asksToRender.length === 0 ? (
                   <div className={styles.emptyState}>
-                    {error ? `Error: ${error}` : isLoading ? 'Connecting to orderbook...' : 'No data'}
+                    {error
+                      ? `Error: ${error}`
+                      : isLoading
+                        ? "Connecting to orderbook..."
+                        : "No data"}
                   </div>
                 ) : (
                   asksToRender.map((ask, index) => (
@@ -173,17 +173,21 @@ export function OrderBook({ orderBook, isLoading, error, config, onConfigChange 
             <div className={styles.bidsHorizontal}>
               <div className={`${styles.headerHorizontal} ${styles.headerHorizontalMirrored}`}>
                 <span className={styles.headerLabel}>
-                  SIZE ({displayUnit === 'coin' ? coin : quoteCurrency})
+                  SIZE ({displayUnit === "coin" ? coin : quoteCurrency})
                 </span>
                 <span className={styles.headerLabel}>
-                  TOTAL ({displayUnit === 'coin' ? coin : quoteCurrency})
+                  TOTAL ({displayUnit === "coin" ? coin : quoteCurrency})
                 </span>
                 <span className={styles.headerLabel}>PRICE</span>
               </div>
               <div className={styles.bidsScroll}>
                 {bidsWithTotal.length === 0 ? (
                   <div className={styles.emptyState}>
-                    {error ? `Error: ${error}` : isLoading ? 'Connecting to orderbook...' : 'No data'}
+                    {error
+                      ? `Error: ${error}`
+                      : isLoading
+                        ? "Connecting to orderbook..."
+                        : "No data"}
                   </div>
                 ) : (
                   bidsWithTotal.map((bid, index) => (

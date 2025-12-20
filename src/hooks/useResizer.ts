@@ -1,6 +1,6 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect } from "react";
 
-const STORAGE_KEY = 'orderbook-split-ratio';
+const STORAGE_KEY = "orderbook-split-ratio";
 
 interface UseResizerOptions {
   initialRatio?: number;
@@ -52,8 +52,8 @@ export function useResizer({
     e.preventDefault();
     isResizingRef.current = true;
     setIsResizing(true);
-    document.body.style.cursor = 'col-resize';
-    document.body.style.userSelect = 'none';
+    document.body.style.cursor = "col-resize";
+    document.body.style.userSelect = "none";
   }, []);
 
   useEffect(() => {
@@ -69,8 +69,8 @@ export function useResizer({
       if (isResizingRef.current) {
         isResizingRef.current = false;
         setIsResizing(false);
-        document.body.style.cursor = '';
-        document.body.style.userSelect = '';
+        document.body.style.cursor = "";
+        document.body.style.userSelect = "";
 
         // Save to localStorage
         try {
@@ -81,12 +81,12 @@ export function useResizer({
       }
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
   }, [minRatio, maxRatio]);
 

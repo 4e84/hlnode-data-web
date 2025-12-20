@@ -5,9 +5,9 @@
  * Handles automatic subscription/unsubscription, deduplication, and caching.
  */
 
-import useSWRSubscription from 'swr/subscription';
-import type { SWRSubscriptionOptions } from 'swr/subscription';
-import { wsManager } from '../services/websocketManager';
+import useSWRSubscription from "swr/subscription";
+import type { SWRSubscriptionOptions } from "swr/subscription";
+import { wsManager } from "../services/websocketManager";
 
 export interface SubscriptionConfig {
   type: string;
@@ -54,34 +54,28 @@ export interface UseTopicSubscriptionResult<T> {
  */
 export function useTopicSubscription<T>(
   config: SubscriptionConfig | null,
-  options?: UseTopicSubscriptionOptions<T>
+  options?: UseTopicSubscriptionOptions<T>,
 ): UseTopicSubscriptionResult<T> {
   // Build SWR key from config (null disables subscription)
-  const key = config ? [config.type, config.params ?? {}] as const : null;
+  const key = config ? ([config.type, config.params ?? {}] as const) : null;
 
   const { data, error } = useSWRSubscription(
     key,
     (keyArg, { next }: SWRSubscriptionOptions<T, Error>) => {
       const [type, params] = keyArg;
 
-      const unsubscribe = wsManager.subscribe(
-        type,
-        params,
-        (rawData) => {
-          try {
-            const transformed = options?.transform
-              ? options.transform(rawData)
-              : (rawData as T);
-            next(null, transformed);
-          } catch (e) {
-            next(e instanceof Error ? e : new Error(String(e)));
-          }
+      const unsubscribe = wsManager.subscribe(type, params, (rawData) => {
+        try {
+          const transformed = options?.transform ? options.transform(rawData) : (rawData as T);
+          next(null, transformed);
+        } catch (e) {
+          next(e instanceof Error ? e : new Error(String(e)));
         }
-      );
+      });
 
       // Return cleanup function
       return () => unsubscribe();
-    }
+    },
   );
 
   return {

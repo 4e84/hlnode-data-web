@@ -48,7 +48,7 @@
   grid-template-columns: 60px 1fr 1fr 40px;
   gap: 8px;
   padding: 3px 12px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   transition: background-color 0.1s ease;
   border-left: 2px solid transparent;
   line-height: 1.6;

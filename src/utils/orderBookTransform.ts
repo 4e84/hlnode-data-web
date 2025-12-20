@@ -2,13 +2,13 @@
  * Transform functions for L2 order book data
  */
 
-import type { L2BookData, OrderBookState } from '../types/orderbook';
+import type { L2BookData, OrderBookState } from "../types/orderbook";
 import {
   parseLevelPrice,
   calculateSpread,
   calculateSpreadPercent,
   calculateMidPrice,
-} from './calculations';
+} from "./calculations";
 
 /**
  * Transform raw L2BookData from WebSocket into OrderBookState
@@ -22,7 +22,7 @@ export function transformL2BookData(data: unknown): OrderBookState {
 
   return {
     coin: l2Data.coin,
-    quoteCurrency: 'USD',
+    quoteCurrency: "USD",
     bids,
     asks,
     timestamp: l2Data.time,

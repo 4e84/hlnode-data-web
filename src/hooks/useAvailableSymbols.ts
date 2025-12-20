@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { fetchAvailableSymbols } from '../api/hyperliquid';
-import { AVAILABLE_COINS } from '../constants/config';
+import { useState, useEffect } from "react";
+import { fetchAvailableSymbols } from "../api/hyperliquid";
+import { AVAILABLE_COINS } from "../constants/config";
 
 interface UseAvailableSymbolsResult {
   symbols: string[];
@@ -30,9 +30,9 @@ export function useAvailableSymbols(): UseAvailableSymbolsResult {
           setSymbols(fetchedSymbols);
         }
       } catch (err) {
-        console.warn('Failed to load symbols from Hyperliquid, using fallback list:', err);
+        console.warn("Failed to load symbols from Hyperliquid, using fallback list:", err);
         if (isMounted) {
-          setError(err instanceof Error ? err : new Error('Failed to fetch symbols'));
+          setError(err instanceof Error ? err : new Error("Failed to fetch symbols"));
           // Keep fallback symbols (already set in initial state)
         }
       } finally {

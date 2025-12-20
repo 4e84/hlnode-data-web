@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'react';
-import { useCoinContext } from '../../context/CoinContext';
-import { useTwap } from '../../hooks/useTwap';
-import { TwapItem } from './TwapItem';
-import styles from './TwapFeed.module.css';
+import { useEffect, useRef } from "react";
+import { useCoinContext } from "../../context/CoinContext";
+import { useTwap } from "../../hooks/useTwap";
+import { TwapItem } from "./TwapItem";
+import styles from "./TwapFeed.module.css";
 
 export function TwapFeed() {
   const { coin } = useCoinContext();
@@ -31,8 +31,7 @@ export function TwapFeed() {
   if (isLoading && twapStatuses.length === 0) {
     return (
       <div className={styles.container}>
-        <div className={styles.loading}>
-        </div>
+        <div className={styles.loading}></div>
       </div>
     );
   }

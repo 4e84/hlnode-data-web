@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useInterval } from 'react-use';
+import { useState } from "react";
+import { useInterval } from "react-use";
 
 /**
  * Returns current timestamp that updates at the specified interval.
@@ -10,7 +10,7 @@ export function useNow(interval: number = 1000, enabled: boolean = true): number
 
   useInterval(
     () => setNow(Date.now()),
-    enabled ? interval : null // null disables the interval
+    enabled ? interval : null, // null disables the interval
   );
 
   return now;

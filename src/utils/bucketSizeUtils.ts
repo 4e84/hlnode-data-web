@@ -25,7 +25,7 @@ export interface BucketConfig {
 export function calculateBucketConfig(
   currentPrice: number,
   desiredBucketSize: number,
-  preferredMantissa: number = 1
+  preferredMantissa: number = 1,
 ): BucketConfig {
   // Handle full precision request (no bucketing)
   if (desiredBucketSize <= 0 || currentPrice <= 0) {
@@ -70,10 +70,10 @@ export function calculateBucketConfig(
  */
 export function findBestBucketConfig(
   currentPrice: number,
-  desiredBucketSize: number
+  desiredBucketSize: number,
 ): BucketConfig {
-  const candidates = [1, 2, 5].map(mantissa =>
-    calculateBucketConfig(currentPrice, desiredBucketSize, mantissa)
+  const candidates = [1, 2, 5].map((mantissa) =>
+    calculateBucketConfig(currentPrice, desiredBucketSize, mantissa),
   );
 
   // Find the candidate with bucket size closest to desired
@@ -143,14 +143,17 @@ export function selectDefaultBucket(currentPrice: number): number {
  */
 export function formatBucketSize(bucketSize: number): string {
   if (bucketSize >= 1000) {
-    return '$' + bucketSize.toLocaleString('en-US', {
-      maximumFractionDigits: 0,
-    });
+    return (
+      "$" +
+      bucketSize.toLocaleString("en-US", {
+        maximumFractionDigits: 0,
+      })
+    );
   }
   if (bucketSize >= 1) {
-    return '$' + bucketSize.toFixed(0);
+    return "$" + bucketSize.toFixed(0);
   }
   // For values < $1, show appropriate decimal places
   const decimals = Math.max(2, Math.ceil(-Math.log10(bucketSize)));
-  return '$' + bucketSize.toFixed(decimals);
+  return "$" + bucketSize.toFixed(decimals);
 }

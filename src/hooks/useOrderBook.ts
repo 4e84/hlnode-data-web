@@ -4,12 +4,12 @@
  * Pure topic-based subscription with auto bucket size calculation
  */
 
-import { useEffect, useCallback, useState, useMemo } from 'react';
-import { useTopicSubscription } from './useTopicSubscription';
-import { useConnectionStatus } from './useConnectionStatus';
-import { findBestBucketConfig } from '../utils/bucketSizeUtils';
-import { transformL2BookData } from '../utils/orderBookTransform';
-import type { OrderBookConfig, OrderBookState } from '../types/orderbook';
+import { useEffect, useCallback, useState, useMemo } from "react";
+import { useTopicSubscription } from "./useTopicSubscription";
+import { useConnectionStatus } from "./useConnectionStatus";
+import { findBestBucketConfig } from "../utils/bucketSizeUtils";
+import { transformL2BookData } from "../utils/orderBookTransform";
+import type { OrderBookConfig, OrderBookState } from "../types/orderbook";
 
 interface UseOrderBookResult {
   orderBook: OrderBookState | null;
@@ -66,8 +66,8 @@ export function useOrderBook(initialConfig: OrderBookConfig): UseOrderBookResult
   }, [config.coin, config.nLevels, config.nSigFigs, config.mantissa]);
 
   const { data, error, isLoading } = useTopicSubscription<OrderBookState>(
-    { type: 'l2Book', params: subscriptionParams },
-    { transform: transformL2BookData }
+    { type: "l2Book", params: subscriptionParams },
+    { transform: transformL2BookData },
   );
 
   // Auto-calculate nSigFigs from bucketSize when we get first price

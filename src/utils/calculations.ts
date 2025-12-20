@@ -1,4 +1,4 @@
-import type { OrderBookLevel } from '../types/orderbook';
+import type { OrderBookLevel } from "../types/orderbook";
 
 /**
  * Calculate spread between best bid and ask
@@ -53,11 +53,11 @@ export function calculateMaxSize(bids: OrderBookLevel[], asks: OrderBookLevel[])
  */
 export function calculateMaxTotal(
   bidsWithTotal: Array<{ total: number }>,
-  asksWithTotal: Array<{ total: number }>
+  asksWithTotal: Array<{ total: number }>,
 ): number {
   const allTotals = [
-    ...bidsWithTotal.map(level => level.total),
-    ...asksWithTotal.map(level => level.total)
+    ...bidsWithTotal.map((level) => level.total),
+    ...asksWithTotal.map((level) => level.total),
   ];
 
   if (allTotals.length === 0) return 1;

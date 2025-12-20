@@ -54,7 +54,7 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 6px;
   padding: 6px 12px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 12px;
   transition: background-color 0.1s ease;
   border-left: 2px solid transparent;
@@ -220,7 +220,7 @@
   display: grid;
   grid-template-columns: 80px 80px 1fr;
   gap: 8px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 11px;
   padding: 2px 0;
   border-left: 2px solid transparent;

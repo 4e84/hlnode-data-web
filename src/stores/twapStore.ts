@@ -1,8 +1,8 @@
-import { create } from 'zustand';
-import type { TwapItem, TwapFill, TwapData } from '../types/twap';
-import type { TradeData } from '../types/trades';
-import { MAX_TRADES_HISTORY } from '../constants/config';
-import { loadTwapStatuses, saveTwapStatuses } from '../utils/twapStorage';
+import { create } from "zustand";
+import type { TwapItem, TwapFill, TwapData } from "../types/twap";
+import type { TradeData } from "../types/trades";
+import { MAX_TRADES_HISTORY } from "../constants/config";
+import { loadTwapStatuses, saveTwapStatuses } from "../utils/twapStorage";
 
 interface TwapStore {
   twapStatuses: TwapItem[];
@@ -84,9 +84,7 @@ export const useTwapStore = create<TwapStore>((set, get) => ({
     const knownTwapIds = get().knownTwapIds;
 
     // Filter trades that belong to known TWAPs
-    const twapFills = tradesData.filter(
-      (trade) => trade.twapId && knownTwapIds.has(trade.twapId)
-    );
+    const twapFills = tradesData.filter((trade) => trade.twapId && knownTwapIds.has(trade.twapId));
 
     if (twapFills.length > 0) {
       set((state) => {

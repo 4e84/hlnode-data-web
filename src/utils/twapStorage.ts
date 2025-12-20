@@ -1,6 +1,6 @@
-import type { TwapItem } from '../types/twap';
+import type { TwapItem } from "../types/twap";
 
-const STORAGE_KEY = 'twap_statuses';
+const STORAGE_KEY = "twap_statuses";
 const EXPIRY_BUFFER_MS = 5 * 60 * 1000; // 5 minute grace period after TWAP should complete
 
 interface StoredTwapData {

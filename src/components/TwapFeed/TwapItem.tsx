@@ -1,32 +1,34 @@
-import { memo, useState } from 'react';
-import type { TwapItem as TwapItemType } from '../../types/twap';
-import { formatSize, formatTime, formatTimeRemaining, formatDuration } from '../../utils/formatters';
-import { useNow } from '../../hooks/useNow';
-import styles from './TwapFeed.module.css';
+import { memo, useState } from "react";
+import type { TwapItem as TwapItemType } from "../../types/twap";
+import {
+  formatSize,
+  formatTime,
+  formatTimeRemaining,
+  formatDuration,
+} from "../../utils/formatters";
+import { useNow } from "../../hooks/useNow";
+import styles from "./TwapFeed.module.css";
 
 interface TwapItemProps {
   twap: TwapItemType;
-  displayUnit?: 'coin' | 'usd';
+  displayUnit?: "coin" | "usd";
 }
 
-export const TwapItem = memo(function TwapItem({ twap, displayUnit = 'coin' }: TwapItemProps) {
+export const TwapItem = memo(function TwapItem({ twap, displayUnit = "coin" }: TwapItemProps) {
   const [expanded, setExpanded] = useState(false);
-  const isRunning = twap.status.toLowerCase() === 'running';
+  const isRunning = twap.status.toLowerCase() === "running";
 
   // Real-time countdown - only tick when TWAP is running
   const now = useNow(1000, isRunning);
 
   const size = parseFloat(twap.sz);
-  const side = twap.side === 'B' ? 'buy' : 'sell';
-  const sideLabel = twap.side === 'B' ? 'BUY' : 'SELL';
+  const side = twap.side === "B" ? "buy" : "sell";
+  const sideLabel = twap.side === "B" ? "BUY" : "SELL";
 
   // Calculate executed from fills (more real-time than server data)
   const fills = twap.fills || [];
   const fillsExecutedSize = fills.reduce((sum, f) => sum + parseFloat(f.sz), 0);
-  const fillsExecutedNtl = fills.reduce(
-    (sum, f) => sum + parseFloat(f.sz) * parseFloat(f.px),
-    0
-  );
+  const fillsExecutedNtl = fills.reduce((sum, f) => sum + parseFloat(f.sz) * parseFloat(f.px), 0);
 
   // Use max of server value and fills sum (fills might be more up-to-date)
   const executedSize = Math.max(parseFloat(twap.executedSz), fillsExecutedSize);
@@ -50,7 +52,7 @@ export const TwapItem = memo(function TwapItem({ twap, displayUnit = 'coin' }: T
   return (
     <div className={styles.twapWrapper}>
       <div
-        className={`${styles.twap} ${styles[side]} ${hasFills ? styles.expandable : ''}`}
+        className={`${styles.twap} ${styles[side]} ${hasFills ? styles.expandable : ""}`}
         onClick={() => hasFills && setExpanded(!expanded)}
       >
         <span className={`${styles.side} ${styles[side]}`}>{sideLabel}</span>
@@ -66,15 +68,11 @@ export const TwapItem = memo(function TwapItem({ twap, displayUnit = 'coin' }: T
           </div>
           <span className={styles.progressText}>{progress.toFixed(0)}%</span>
         </div>
-        <span className={styles.avgPrice}>
-          {avgPrice > 0 ? `$${avgPrice.toFixed(2)}` : '-'}
-        </span>
+        <span className={styles.avgPrice}>{avgPrice > 0 ? `$${avgPrice.toFixed(2)}` : "-"}</span>
         <span className={styles.timeRemaining}>
           {isRunning ? formatTimeRemaining(endTimestamp, now) : formatDuration(twap.minutes)}
         </span>
-        {hasFills && (
-          <span className={styles.expandIcon}>{expanded ? '▼' : '▶'}</span>
-        )}
+        {hasFills && <span className={styles.expandIcon}>{expanded ? "▼" : "▶"}</span>}
       </div>
 
       {expanded && hasFills && (
@@ -105,15 +103,15 @@ export const TwapItem = memo(function TwapItem({ twap, displayUnit = 'coin' }: T
 
 function getStatusClass(status: string): string {
   switch (status.toLowerCase()) {
-    case 'running':
-      return 'statusRunning';
-    case 'finished':
-      return 'statusFinished';
-    case 'cancelled':
-    case 'canceled':
-    case 'error':
-      return 'statusCancelled';
+    case "running":
+      return "statusRunning";
+    case "finished":
+      return "statusFinished";
+    case "cancelled":
+    case "canceled":
+    case "error":
+      return "statusCancelled";
     default:
-      return 'statusRunning';
+      return "statusRunning";
   }
 }
