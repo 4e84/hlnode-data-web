@@ -49,7 +49,7 @@ function validateSymbol(symbol?: string | null): string {
   }
 
   // Convert to uppercase and trim whitespace
-  const normalized = symbol.trim().toUpperCase();
+  const normalized = symbol.trim();
 
   if (normalized.length === 0) {
     return DEFAULT_COIN;

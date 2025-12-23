@@ -35,9 +35,75 @@ class WebSocketManager {
   private url: string;
   private status: ConnectionStatus = "disconnected";
   private statusListeners = new Set<StatusCallback>();
+  private paused = false;
 
   constructor(url: string) {
     this.url = url;
+    this.setupVisibilityHandler();
+  }
+
+  /**
+   * Setup Page Visibility API handler
+   * Pauses subscriptions when tab is hidden, resumes when visible
+   */
+  private setupVisibilityHandler(): void {
+    if (typeof document === "undefined") return;
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        this.pause();
+      } else {
+        this.resume();
+      }
+    });
+  }
+
+  /**
+   * Pause all subscriptions (unsubscribe from server but keep local state)
+   * Called automatically when tab becomes hidden
+   */
+  pause(): void {
+    if (this.paused) return;
+    this.paused = true;
+
+    // Unsubscribe all topics from server
+    if (this.socket?.readyState === WebSocket.OPEN) {
+      this.subscriptions.forEach((sub) => {
+        this.sendUnsubscribe(sub.type, sub.params);
+      });
+    }
+
+    // Stop any pending reconnection attempts
+    if (this.reconnectTimeout) {
+      clearTimeout(this.reconnectTimeout);
+      this.reconnectTimeout = null;
+    }
+  }
+
+  /**
+   * Resume all subscriptions (resubscribe to server)
+   * Called automatically when tab becomes visible
+   */
+  resume(): void {
+    if (!this.paused) return;
+    this.paused = false;
+
+    // Resubscribe all topics to server
+    if (this.socket?.readyState === WebSocket.OPEN) {
+      this.subscriptions.forEach((sub) => {
+        this.sendSubscribe(sub.type, sub.params);
+      });
+    } else if (this.subscriptions.size > 0) {
+      // Reconnect if we have active subscriptions but no connection
+      this.connect();
+    }
+  }
+
+  /**
+   * Check if subscriptions are currently paused
+   */
+  isPaused(): boolean {
+    return this.paused;
   }
 
   /**
@@ -110,8 +176,8 @@ class WebSocketManager {
         params,
         callbacks: new Set([callback]),
       });
-      // Send subscribe message if connected
-      if (this.socket?.readyState === WebSocket.OPEN) {
+      // Send subscribe message if connected and not paused
+      if (this.socket?.readyState === WebSocket.OPEN && !this.paused) {
         this.sendSubscribe(type, params);
       }
     }
@@ -253,6 +319,9 @@ class WebSocketManager {
   }
 
   private attemptReconnect(): void {
+    // Don't reconnect while paused
+    if (this.paused) return;
+
     if (this.reconnectAttempts >= this.maxReconnectAttempts) {
       console.error("[WebSocketManager] Max reconnect attempts reached");
       this.setStatus("error");
